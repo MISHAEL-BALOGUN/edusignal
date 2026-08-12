@@ -1,53 +1,107 @@
-import { useState } from 'react';
-import { students, getAverageScore, getRiskLevel } from '../data/mockData';
+import { useState, useMemo } from 'react';
+import { useData } from '../context/DataContext';
 import RiskBadge from '../components/RiskBadge';
 import StudentCard from '../components/StudentCard';
 import AIChatbot from '../components/AIChatbot';
 import { Users, AlertTriangle, CheckCircle, Clock, Filter, Search, ChevronDown } from 'lucide-react';
 
 const TeacherDashboard = () => {
+  const { students, loading, error, refetch } = useData();
   const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStudent, setSelectedStudent] = useState(null);
 
-  const filteredStudents = students
+  const getRiskColor = (score) => {
+    if (score > 60) return 'text-danger';
+    if (score > 30) return 'text-warning';
+    return 'text-success';
+  };
+
+  const getAverageScore = (student) => {
+    if (!student.subjects?.length) return 0;
+    const total = student.subjects.reduce((sum, s) => sum + (s.score || s.avg_score || 0), 0);
+    return Math.round(total / student.subjects.length);
+  };
+
+  const getRiskLevel = (score) => {
+    if (score <= 30) return 'low';
+    if (score <= 60) return 'medium';
+    return 'high';
+  };
+
+  const filteredStudents = useMemo(() => students
     .filter(s => {
-      if (filter === 'high') return s.riskScore > 60;
-      if (filter === 'medium') return s.riskScore > 30 && s.riskScore <= 60;
-      if (filter === 'low') return s.riskScore <= 30;
+      const risk = s.risk_score ?? s.riskScore ?? 0;
+      if (filter === 'high') return risk > 60;
+      if (filter === 'medium') return risk > 30 && risk <= 60;
+      if (filter === 'low') return risk <= 30;
       return true;
     })
-    .filter(s => s.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    .filter(s => s.name.toLowerCase().includes(searchTerm.toLowerCase())), [students, filter, searchTerm]);
 
-  const atRiskStudents = students.filter(s => s.riskScore > 60).sort((a, b) => b.riskScore - a.riskScore);
-  const mediumRiskStudents = students.filter(s => s.riskScore > 30 && s.riskScore <= 60);
+  const atRiskStudents = useMemo(() => students
+    .filter(s => (s.risk_score ?? s.riskScore ?? 0) > 60)
+    .sort((a, b) => (b.risk_score ?? b.riskScore ?? 0) - (a.risk_score ?? a.riskScore ?? 0)), [students]);
 
-  const stats = [
+  const mediumRiskStudents = useMemo(() => students
+    .filter(s => {
+      const risk = s.risk_score ?? s.riskScore ?? 0;
+      return risk > 30 && risk <= 60;
+    }), [students]);
+
+  const stats = useMemo(() => [
     { label: 'Total Students', value: students.length, icon: Users, color: 'text-primary', bg: 'bg-primary/10' },
     { label: 'High Risk', value: atRiskStudents.length, icon: AlertTriangle, color: 'text-danger', bg: 'bg-danger/10' },
     { label: 'Medium Risk', value: mediumRiskStudents.length, icon: Clock, color: 'text-warning', bg: 'bg-warning/10' },
-    { label: 'Low Risk', value: students.filter(s => s.riskScore <= 30).length, icon: CheckCircle, color: 'text-success', bg: 'bg-success/10' }
-  ];
+    { label: 'Low Risk', value: students.filter(s => (s.risk_score ?? s.riskScore ?? 0) <= 30).length, icon: CheckCircle, color: 'text-success', bg: 'bg-success/10' }
+  ], [students, atRiskStudents, mediumRiskStudents]);
 
   const getInterventionSuggestions = (student) => {
+    const riskScore = student.risk_score ?? student.riskScore ?? 0;
+    const attendance = student.attendance_rate ?? student.attendance ?? 0;
+    const behaviorScore = student.behavior_score ?? student.behaviorScore ?? 0;
     const suggestions = [];
-    if (student.riskScore > 60) {
+    if (riskScore > 60) {
       suggestions.push("Immediate intervention meeting", "Daily check-ins", "Counseling referral");
-    } else if (student.riskScore > 30) {
+    } else if (riskScore > 30) {
       suggestions.push("Weekly progress monitoring", "Study skills workshop", "Parent contact");
     } else {
       suggestions.push("Continue monitoring", "Enrichment opportunities");
     }
-    if (student.attendance < 85) suggestions.push("Attendance improvement plan");
-    if (student.behaviorScore < 70) suggestions.push("Behavioral support");
+    if (attendance < 85) suggestions.push("Attendance improvement plan");
+    if (behaviorScore < 70) suggestions.push("Behavioral support");
     return suggestions;
   };
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-danger mb-4">Failed to load data: {error}</p>
+        <button onClick={refetch} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90">
+          Retry
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-800">Teacher Dashboard</h1>
-        <p className="text-gray-500">Monitor student performance and manage interventions</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-800">Teacher Dashboard</h1>
+          <p className="text-gray-500">Monitor student performance and manage interventions</p>
+        </div>
+        <button onClick={refetch} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm">
+          Refresh
+        </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -86,13 +140,13 @@ const TeacherDashboard = () => {
                       <p className="text-sm text-gray-500">Grade {student.grade} • Avg: {getAverageScore(student)}%</p>
                     </div>
                   </div>
-                  <RiskBadge score={student.riskScore} />
+                  <RiskBadge score={student.risk_score ?? student.riskScore ?? 0} />
                 </div>
                 
                 <div className="mb-3">
                   <p className="text-sm font-medium text-gray-600 mb-2">Risk Factors:</p>
                   <div className="flex flex-wrap gap-2">
-                    {student.riskFactors.map((factor, idx) => (
+                    {(student.risk_factors || student.riskFactors || []).map((factor, idx) => (
                       <span key={idx} className="text-xs bg-danger/10 text-danger px-2 py-1 rounded-full">
                         {factor}
                       </span>
@@ -111,16 +165,16 @@ const TeacherDashboard = () => {
                   </div>
                 </div>
 
-                {student.interventions.length > 0 && (
+                {(student.interventions || []).length > 0 && (
                   <div className="mt-3 pt-3 border-t border-danger/20">
                     <p className="text-sm font-medium text-gray-600 mb-2">Current Interventions:</p>
                     <div className="space-y-2">
                       {student.interventions.map((intervention, idx) => (
                         <div key={idx} className="flex items-center justify-between text-sm">
-                          <span className="text-gray-700">{intervention.name}</span>
+                          <span className="text-gray-700">{intervention.title || intervention.name}</span>
                           <span className={`text-xs px-2 py-1 rounded-full ${
                             intervention.status === 'completed' ? 'bg-success/10 text-success' :
-                            intervention.status === 'in-progress' ? 'bg-warning/10 text-warning' :
+                            intervention.status === 'in_progress' || intervention.status === 'in-progress' ? 'bg-warning/10 text-warning' :
                             'bg-primary/10 text-primary'
                           }`}>
                             {intervention.status}
