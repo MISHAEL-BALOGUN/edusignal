@@ -15,9 +15,9 @@ export const PerformanceLineChart = ({ data, dataKey = "score", xAxisKey = "mont
           <Line
             type="monotone"
             dataKey={dataKey}
-            stroke="#2563EB"
+            stroke="#EC4899"
             strokeWidth={3}
-            dot={{ fill: '#2563EB', strokeWidth: 2, r: 4 }}
+            dot={{ fill: '#EC4899', strokeWidth: 2, r: 4 }}
             activeDot={{ r: 6 }}
           />
         </LineChart>
@@ -27,7 +27,7 @@ export const PerformanceLineChart = ({ data, dataKey = "score", xAxisKey = "mont
 };
 
 export const MultiLineChart = ({ lines, data, xAxisKey = "month", title }) => {
-  const colors = ['#2563EB', '#10B981', '#F59E0B', '#EF4444'];
+  const colors = ['#EC4899', '#10B981', '#F59E0B', '#EF4444'];
   
   return (
     <div className="bg-white rounded-xl p-6 shadow-sm">
@@ -113,7 +113,7 @@ export const GradeBarChart = ({ data, title }) => {
           <Tooltip
             contentStyle={{ backgroundColor: '#fff', border: '1px solid #E2E8F0', borderRadius: '8px' }}
           />
-          <Bar dataKey="value" fill="#2563EB" radius={[4, 4, 0, 0]} />
+          <Bar dataKey="value" fill="#EC4899" radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>
@@ -134,7 +134,7 @@ export const SubjectBarChart = ({ subjects, title }) => {
           <Tooltip
             contentStyle={{ backgroundColor: '#fff', border: '1px solid #E2E8F0', borderRadius: '8px' }}
           />
-          <Bar dataKey="score" fill="#2563EB" radius={[0, 4, 4, 0]} />
+          <Bar dataKey="score" fill="#EC4899" radius={[0, 4, 4, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>

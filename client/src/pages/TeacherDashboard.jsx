@@ -94,12 +94,12 @@ const TeacherDashboard = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Teacher Dashboard</h1>
           <p className="text-gray-500">Monitor student performance and manage interventions</p>
         </div>
-        <button onClick={refetch} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm">
+        <button onClick={refetch} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm self-start sm:self-auto">
           Refresh
         </button>
       </div>
@@ -191,17 +191,17 @@ const TeacherDashboard = () => {
       )}
 
       <div className="bg-white rounded-xl p-6 shadow-sm">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <h2 className="text-lg font-semibold text-gray-800">All Students</h2>
-          <div className="flex items-center gap-4">
-            <div className="relative">
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="relative w-full sm:w-64">
               <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search students..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary text-sm"
+                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary text-sm"
               />
             </div>
             <div className="relative">

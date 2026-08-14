@@ -76,12 +76,12 @@ if (loading) {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
           <p className="text-gray-500">School-wide analytics and student management</p>
         </div>
-        <button onClick={refetch} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm">
+        <button onClick={refetch} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm self-start sm:self-auto">
           Refresh
         </button>
       </div>
@@ -269,7 +269,7 @@ if (loading) {
 
             <div className="mb-6">
               <h3 className="font-semibold text-gray-800 mb-3">Subject Performance</h3>
-              <div className="grid grid-cols-5 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
                 {(selectedStudent.subjects || []).map((subject, idx) => (
                   <div key={idx} className="text-center p-2 bg-gray-50 rounded-lg">
                     <div className={`text-lg font-bold ${

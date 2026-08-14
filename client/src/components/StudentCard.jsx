@@ -41,7 +41,7 @@ const StudentCard = ({ student, onClick, compact = false }) => {
       onClick={onClick}
       className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-100"
     >
-      <div className="flex items-start justify-between mb-4">
+      <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
             <span className="text-primary font-bold text-lg">{student.avatar || student.name?.charAt(0)}</span>
