@@ -43,8 +43,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-primary/10 flex items-center justify-center p-4 sm:p-8">
-      <div className="max-w-4xl w-full">
+    <div className="min-h-dvh bg-gradient-to-br from-primary/5 via-white to-primary/10 flex justify-center p-4 sm:p-8">
+      <div className="w-full lg:w-[80%] my-auto py-8">
         <div className="text-center mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-3 mb-6">
             <div className="w-12 h-12 sm:w-14 sm:h-14 bg-primary rounded-2xl flex items-center justify-center shadow-lg">
@@ -63,7 +63,7 @@ const LoginPage = () => {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 mx-auto">
           {roles.map((role) => {
             const Icon = role.icon;
             const isSelected = selectedRole === role.id;
