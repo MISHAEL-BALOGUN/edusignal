@@ -20,7 +20,7 @@ const StudentCard = ({ student, onClick, compact = false }) => {
         onClick={onClick}
         className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-100"
       >
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
               <span className="text-primary font-semibold text-sm">{student.avatar || student.name?.charAt(0)}</span>
@@ -39,32 +39,32 @@ const StudentCard = ({ student, onClick, compact = false }) => {
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-100"
+      className="bg-white rounded-xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-100"
     >
       <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
-            <span className="text-primary font-bold text-lg">{student.avatar || student.name?.charAt(0)}</span>
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-primary/10 flex items-center justify-center">
+            <span className="text-primary font-bold text-base sm:text-lg">{student.avatar || student.name?.charAt(0)}</span>
           </div>
           <div>
-            <h3 className="font-semibold text-gray-800">{student.name}</h3>
-            <p className="text-sm text-gray-500">Grade {student.grade}</p>
+            <h3 className="font-semibold text-gray-800 text-sm sm:text-base">{student.name}</h3>
+            <p className="text-xs sm:text-sm text-gray-500">Grade {student.grade}</p>
           </div>
         </div>
         <RiskBadge score={riskScore} />
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-4">
-        <div className="text-center p-3 bg-gray-50 rounded-lg">
-          <p className="text-2xl font-bold text-primary">{avgScore}%</p>
+      <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-4">
+        <div className="text-center p-2 sm:p-3 bg-gray-50 rounded-lg">
+          <p className="text-lg sm:text-2xl font-bold text-primary">{avgScore}%</p>
           <p className="text-xs text-gray-500">Avg Score</p>
         </div>
-        <div className="text-center p-3 bg-gray-50 rounded-lg">
-          <p className="text-2xl font-bold text-success">{attendance}%</p>
+        <div className="text-center p-2 sm:p-3 bg-gray-50 rounded-lg">
+          <p className="text-lg sm:text-2xl font-bold text-success">{attendance}%</p>
           <p className="text-xs text-gray-500">Attendance</p>
         </div>
-        <div className="text-center p-3 bg-gray-50 rounded-lg">
-          <p className="text-2xl font-bold text-warning">{behaviorScore}</p>
+        <div className="text-center p-2 sm:p-3 bg-gray-50 rounded-lg">
+          <p className="text-lg sm:text-2xl font-bold text-warning">{behaviorScore}</p>
           <p className="text-xs text-gray-500">Behavior</p>
         </div>
       </div>

@@ -22,13 +22,13 @@ const StudentDashboard = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Welcome back, {student.name.split(' ')[0]}!</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-800">Welcome back, {student.name.split(' ')[0]}!</h1>
           <p className="text-gray-500">Here's your academic overview</p>
         </div>
         <RiskBadge score={student.riskScore} size="lg" />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, idx) => {
           const Icon = stat.icon;
           return (
@@ -38,7 +38,7 @@ const StudentDashboard = () => {
                   <Icon size={24} className={stat.color} />
                 </div>
               </div>
-              <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-800">{stat.value}</p>
               <p className="text-sm text-gray-500">{stat.label}</p>
             </div>
           );
@@ -58,7 +58,7 @@ const StudentDashboard = () => {
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               {student.subjects.map((subject, idx) => (
                 <div key={idx} className="text-center p-3 bg-gray-50 rounded-lg">
-                  <div className={`text-2xl font-bold ${
+                  <div className={`text-lg sm:text-2xl font-bold ${
                     subject.score >= 90 ? 'text-success' :
                     subject.score >= 70 ? 'text-primary' :
                     subject.score >= 60 ? 'text-warning' : 'text-danger'
@@ -77,8 +77,8 @@ const StudentDashboard = () => {
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Profile Information</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                  <span className="text-primary font-bold text-xl">{student.avatar}</span>
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                  <span className="text-primary font-bold text-lg sm:text-xl">{student.avatar}</span>
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-800">{student.name}</h4>

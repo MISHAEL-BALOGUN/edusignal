@@ -78,7 +78,7 @@ if (loading) {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-800">Admin Dashboard</h1>
           <p className="text-gray-500">School-wide analytics and student management</p>
         </div>
         <button onClick={refetch} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 text-sm self-start sm:self-auto">
@@ -86,7 +86,7 @@ if (loading) {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {statCards.map((stat, idx) => {
           const Icon = stat.icon;
           return (
@@ -96,7 +96,7 @@ if (loading) {
                   <Icon size={24} className={stat.color} />
                 </div>
               </div>
-              <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-800">{stat.value}</p>
               <p className="text-sm text-gray-500">{stat.label}</p>
             </div>
           );
@@ -232,7 +232,7 @@ if (loading) {
 
 {selectedStudent && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6">
+          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-4 sm:p-6">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
@@ -248,21 +248,21 @@ if (loading) {
               </button>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              <div className="text-center p-4 bg-gray-50 rounded-xl">
-                <p className="text-2xl font-bold text-primary">{getAverageScore(selectedStudent)}%</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 mb-6">
+              <div className="text-center p-3 sm:p-4 bg-gray-50 rounded-xl">
+                <p className="text-xl sm:text-2xl font-bold text-primary">{getAverageScore(selectedStudent)}%</p>
                 <p className="text-sm text-gray-500">Avg Score</p>
               </div>
-              <div className="text-center p-4 bg-gray-50 rounded-xl">
-                <p className="text-2xl font-bold text-success">{selectedStudent.attendance_rate ?? selectedStudent.attendance ?? 0}%</p>
+              <div className="text-center p-3 sm:p-4 bg-gray-50 rounded-xl">
+                <p className="text-xl sm:text-2xl font-bold text-success">{selectedStudent.attendance_rate ?? selectedStudent.attendance ?? 0}%</p>
                 <p className="text-sm text-gray-500">Attendance</p>
               </div>
-              <div className="text-center p-4 bg-gray-50 rounded-xl">
-                <p className="text-2xl font-bold text-warning">{selectedStudent.behavior_score ?? selectedStudent.behaviorScore ?? 0}</p>
+              <div className="text-center p-3 sm:p-4 bg-gray-50 rounded-xl">
+                <p className="text-xl sm:text-2xl font-bold text-warning">{selectedStudent.behavior_score ?? selectedStudent.behaviorScore ?? 0}</p>
                 <p className="text-sm text-gray-500">Behavior</p>
               </div>
-              <div className="text-center p-4 bg-gray-50 rounded-xl">
-                <p className={`text-2xl font-bold ${getRiskColor(selectedStudent.risk_score ?? selectedStudent.riskScore ?? 0)}`}>{selectedStudent.risk_score ?? selectedStudent.riskScore ?? 0}</p>
+              <div className="text-center p-3 sm:p-4 bg-gray-50 rounded-xl">
+                <p className={`text-xl sm:text-2xl font-bold ${getRiskColor(selectedStudent.risk_score ?? selectedStudent.riskScore ?? 0)}`}>{selectedStudent.risk_score ?? selectedStudent.riskScore ?? 0}</p>
                 <p className="text-sm text-gray-500">Risk Score</p>
               </div>
             </div>

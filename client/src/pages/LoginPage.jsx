@@ -43,19 +43,19 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-primary/10 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-primary/10 flex items-center justify-center p-4 sm:p-8">
       <div className="max-w-4xl w-full">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-3 mb-6">
-            <div className="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center shadow-lg">
-              <span className="font-bold text-2xl text-white">eS</span>
+            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-primary rounded-2xl flex items-center justify-center shadow-lg">
+              <span className="font-bold text-xl sm:text-2xl text-white">eS</span>
             </div>
             <div className="text-left">
-              <h1 className="text-3xl font-bold text-gray-800">eduSignal</h1>
-              <p className="text-sm text-gray-500">AI-Driven Student Success Platform</p>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">eduSignal</h1>
+              <p className="text-xs sm:text-sm text-gray-500">AI-Driven Student Success Platform</p>
             </div>
           </div>
-          <h2 className="text-2xl font-semibold text-gray-700 mb-2">
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-700 mb-2">
             Welcome to Student Success
           </h2>
           <p className="text-gray-500 max-w-md mx-auto">
@@ -63,7 +63,7 @@ const LoginPage = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-8">
           {roles.map((role) => {
             const Icon = role.icon;
             const isSelected = selectedRole === role.id;
@@ -72,13 +72,13 @@ const LoginPage = () => {
               <button
                 key={role.id}
                 onClick={() => setSelectedRole(role.id)}
-                className={`p-6 rounded-2xl border-2 transition-all text-left ${
+                className={`p-5 sm:p-6 rounded-2xl border-2 transition-all text-left ${
                   isSelected
                     ? 'border-primary bg-primary/5 shadow-lg scale-105'
                     : 'border-gray-200 bg-white hover:border-primary/50 hover:shadow-md'
                 }`}
               >
-                <div className={`w-14 h-14 ${role.color} rounded-xl flex items-center justify-center mb-4`}>
+                <div className={`w-12 h-12 sm:w-14 sm:h-14 ${role.color} rounded-xl flex items-center justify-center mb-4`}>
                   <Icon size={28} className="text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">{role.title}</h3>
