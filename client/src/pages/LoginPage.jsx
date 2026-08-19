@@ -52,9 +52,7 @@ const LoginPage = () => {
       <div className="relative w-full max-w-sm sm:max-w-md my-auto">
         <header className="text-center mb-8">
           <div className="inline-flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 bg-primary rounded-xl shadow-md shadow-primary/20 flex items-center justify-center">
-              <span className="font-bold text-white text-sm">eS</span>
-            </div>
+            <img src="/lasu-logo.png" alt="eduSignal logo" className="w-10 h-10 object-contain" />
             <div className="text-left">
               <h1 className="font-bold text-gray-800 leading-none">eduSignal</h1>
               <p className="text-[11px] text-gray-400 mt-1 leading-none">AI-Driven Student Success Platform</p>

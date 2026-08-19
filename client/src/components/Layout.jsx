@@ -18,9 +18,7 @@ const Layout = () => {
             <Menu size={24} />
           </button>
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="font-bold text-white">eS</span>
-            </div>
+            <img src="/lasu-logo.png" alt="eduSignal logo" className="w-8 h-8 object-contain" />
             <span className="font-bold text-gray-800">eduSignal</span>
           </div>
         </header>
